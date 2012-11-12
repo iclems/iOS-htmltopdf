@@ -5,7 +5,8 @@ This class enables simple URL-based PDF creation. Pages are created the exact sa
 
 Example code:
 
-`    self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:[NSURL URLWithString:@"http://edition.cnn.com/2012/11/12/business/china-consumer-economy/index.html?hpt=hp_c1"]
+`    
+self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:[NSURL URLWithString:@"http://edition.cnn.com/2012/11/12/business/china-consumer-economy/index.html?hpt=hp_c1"]
 
                                          pathForPDF:[@"~/Documents/demo.pdf" stringByExpandingTildeInPath]
 
