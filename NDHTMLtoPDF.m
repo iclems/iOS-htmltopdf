@@ -70,7 +70,9 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
-{    
+{
+    if (webView.isLoading) return;
+    
     UIPrintPageRenderer *render = [[UIPrintPageRenderer alloc] init];
     
     [render addPrintFormatter:webView.viewPrintFormatter startingAtPageAtIndex:0];
@@ -89,18 +91,32 @@
         
     [pdfData writeToFile: self.PDFpath  atomically: YES];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLToPDFDidSucceed)])
-        [self.delegate HTMLToPDFDidSucceed];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:)])
+        [self.delegate HTMLtoPDFDidSucceed:self];
     
-    [self.view removeFromSuperview];
+
+    [self terminateWebTask];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLToPDFDidFail)])
-        [self.delegate HTMLToPDFDidFail];
+    if (webView.isLoading) return;
 
+    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidFail:)])
+        [self.delegate HTMLtoPDFDidFail:self];
+
+    [self terminateWebTask];
+}
+
+- (void)terminateWebTask
+{
+    [self.webview stopLoading];
+    self.webview.delegate = nil;
+    [self.webview removeFromSuperview];
+    
     [self.view removeFromSuperview];
+    
+    self.webview = nil;
 }
 
 @end

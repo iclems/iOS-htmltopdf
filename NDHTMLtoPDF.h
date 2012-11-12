@@ -10,16 +10,21 @@
 
 #define kPaperSizeA4 CGSizeMake(595,842)
 
+@class NDHTMLtoPDF;
+
 @protocol NDHTMLtoPDFDelegate <NSObject>
 
-- (void)HTMLToPDFDidSucceed;
-- (void)HTMLToPDFDidFail;
+@optional
+- (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF;
+- (void)HTMLtoPDFDidFail:(NDHTMLtoPDF*)htmlToPDF;
 
 @end
 
 @interface NDHTMLtoPDF : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, weak) id <NDHTMLtoPDFDelegate> delegate;
+
+@property (nonatomic, strong, readonly) NSString *PDFpath;
 
 + (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
 
