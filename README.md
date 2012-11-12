@@ -6,9 +6,13 @@ This class enables simple URL-based PDF creation. Pages are created the exact sa
 Example code:
 
 `    self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:[NSURL URLWithString:@"http://edition.cnn.com/2012/11/12/business/china-consumer-economy/index.html?hpt=hp_c1"]
+
                                          pathForPDF:[@"~/Documents/demo.pdf" stringByExpandingTildeInPath]
+
                                            delegate:self
+
                                            pageSize:kPaperSizeA4
+
                                             margins:UIEdgeInsetsMake(10, 5, 10, 5)];
 `
 
@@ -19,5 +23,7 @@ Please, be sure to create a property (e.g. `PDFCreator`) as NDHTMLtoPDF works as
 Feel free to contact me if you have any question !
 
 @cwehrung
+
 cwehrung@nurves.com
+
 Clément Wehrung
