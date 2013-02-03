@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #define kPaperSizeA4 CGSizeMake(595,842)
+#define kPaperSizeLetter CGSizeMake(612,792)
 
 @class NDHTMLtoPDF;
 
@@ -27,5 +28,6 @@
 @property (nonatomic, strong, readonly) NSString *PDFpath;
 
 + (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
++ (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
 
 @end
