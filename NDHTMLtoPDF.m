@@ -13,6 +13,7 @@
 @interface NDHTMLtoPDF ()
 
 @property (nonatomic, strong) NSURL *URL;
+@property (nonatomic, strong) NSString *HTML;
 @property (nonatomic, strong) NSString *PDFpath;
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) CGSize pageSize;
@@ -30,9 +31,19 @@
 
 @synthesize URL=_URL,webview,delegate=_delegate,PDFpath=_PDFpath,pageSize=_pageSize,pageMargins=_pageMargins;
 
+// Create PDF by passing in the URL to a webpage
 + (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
     NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithURL:URL delegate:delegate pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    
+    return creator;
+}
+
+// Create PDF by passing in the HTML as a String
++ (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate
+               pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
+{
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML delegate:delegate pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
     
     return creator;
 }
@@ -57,6 +68,27 @@
     return self;
 }
 
+- (id)initWithHTML:(NSString*)HTML delegate:(id <NDHTMLtoPDFDelegate>)delegate
+        pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
+{
+    self = [super init];
+    if (self)
+    {
+        self.HTML = HTML;
+        self.delegate = delegate;
+        self.PDFpath = PDFpath;
+        
+        self.pageMargins = pageMargins;
+        self.pageSize = pageSize;
+        
+        [[UIApplication sharedApplication].delegate.window addSubview:self.view];
+        
+        self.view.frame = CGRectMake(0, 0, 1, 1);
+        self.view.alpha = 0.0;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -66,7 +98,11 @@
     
     [self.view addSubview:webview];
     
-    [webview loadRequest:[NSURLRequest requestWithURL:self.URL]];
+    if (self.URL != nil) {
+        [webview loadRequest:[NSURLRequest requestWithURL:self.URL]];
+    }else{
+        [webview loadHTMLString:self.HTML baseURL:nil];
+    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
