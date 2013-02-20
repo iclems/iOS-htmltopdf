@@ -127,21 +127,23 @@
         
     [pdfData writeToFile: self.PDFpath  atomically: YES];
     
+    [self terminateWebTask];
+
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:)])
         [self.delegate HTMLtoPDFDidSucceed:self];
     
 
-    [self terminateWebTask];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     if (webView.isLoading) return;
 
+    [self terminateWebTask];
+
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidFail:)])
         [self.delegate HTMLtoPDFDidFail:self];
 
-    [self terminateWebTask];
 }
 
 - (void)terminateWebTask
