@@ -7,7 +7,7 @@ Example code:
 
 <code> 
 
-                                         self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:
+                        self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:
 
                                          [NSURL URLWithString:@"http://url.com"]
 
