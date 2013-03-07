@@ -6,6 +6,7 @@ This class enables simple URL-based PDF creation. Pages are created the exact sa
 Example code:
 
 <code> 
+
                                          self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:
 
                                          [NSURL URLWithString:@"http://url.com"]
@@ -22,6 +23,7 @@ Example code:
 You can also use the alternative following code to generate PDF directly from HTML string, without using an URL. This is useful if you want your PDF generator to work offline or if you don't want to write first your code into a local file (you can then use NSURL with a local file through fileURLWithPath:) :
 
 <code>
+
                                          + (id)createPDFWithHTML:(NSString*)HTML 
 
                                          pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate
