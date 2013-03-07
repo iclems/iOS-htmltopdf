@@ -8,7 +8,7 @@ Example code:
 <code> 
 self.PDFCreator = [NDHTMLtoPDF createPDFWithURL:
 
-[NSURL URLWithString:@"http://edition.cnn.com/2012/11/12/business/china-consumer-economy/index.html?hpt=hp_c1"]
+                                         [NSURL URLWithString:@"http://url.com"]
 
                                          pathForPDF:[@"~/Documents/demo.pdf" stringByExpandingTildeInPath]
                                          
