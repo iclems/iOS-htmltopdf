@@ -3,7 +3,7 @@
 //  Nurves
 //
 //  Created by Clément Wehrung on 31/10/12.
-//  Copyright (c) 2012 QuelleEnergie. All rights reserved.
+//  Copyright (c) 2012-2013 Nurves. All rights reserved.
 //
 //  This program is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
