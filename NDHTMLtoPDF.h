@@ -3,7 +3,7 @@
 //  Nurves
 //
 //  Created by Clément Wehrung on 31/10/12.
-//  Copyright (c) 2012 QuelleEnergie. All rights reserved.
+//  Copyright (c) 2012-2013 Nurves. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
