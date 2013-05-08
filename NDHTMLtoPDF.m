@@ -180,7 +180,7 @@
 {
     NSMutableData *pdfData = [NSMutableData data];
     
-    UIGraphicsBeginPDFContextToData( pdfData, CGRectZero, nil );
+    UIGraphicsBeginPDFContextToData( pdfData, self.pageSize, nil );
         
     [self prepareForDrawingPages: NSMakeRange(0, self.numberOfPages)];
     
