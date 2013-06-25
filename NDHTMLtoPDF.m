@@ -58,7 +58,16 @@
 + (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate
                pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
-    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML delegate:delegate pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML baseURL:nil delegate:delegate pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    
+    return creator;
+}
+
+// Create PDF by passing in the HTML as a String, with a base URL
++ (id)createPDFWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate
+               pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
+{
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML baseURL:baseURL delegate:delegate pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
     
     return creator;
 }
@@ -83,13 +92,14 @@
     return self;
 }
 
-- (id)initWithHTML:(NSString*)HTML delegate:(id <NDHTMLtoPDFDelegate>)delegate
+- (id)initWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL delegate:(id <NDHTMLtoPDFDelegate>)delegate
         pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
     self = [super init];
     if (self)
     {
         self.HTML = HTML;
+        self.URL = baseURL;
         self.delegate = delegate;
         self.PDFpath = PDFpath;
         
@@ -113,10 +123,10 @@
     
     [self.view addSubview:webview];
     
-    if (self.URL != nil) {
+    if (self.HTML == nil) {
         [webview loadRequest:[NSURLRequest requestWithURL:self.URL]];
     }else{
-        [webview loadHTMLString:self.HTML baseURL:nil];
+        [webview loadHTMLString:self.HTML baseURL:self.URL];
     }
 }
 
