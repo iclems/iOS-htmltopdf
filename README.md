@@ -33,7 +33,7 @@ You can also use the alternative following code to generate PDF directly from HT
                                          margins:(UIEdgeInsets)pageMargins
 </code>
 
-A paper size is only defined by a rect (e.g. kPaperSizeA4 CGSizeMake(595,842)).
+A paper size is only defined by a rect (e.g. kPaperSizeA4 CGSizeMake(595.2,841.8)).
 
 Please, be sure to create a property (e.g. `PDFCreator`) as NDHTMLtoPDF works asynchronously using UIWebView.
 
