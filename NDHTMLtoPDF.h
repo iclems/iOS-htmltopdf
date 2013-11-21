@@ -13,7 +13,7 @@
 
 @class NDHTMLtoPDF;
 
-typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF*);
+typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
 
 @protocol NDHTMLtoPDFDelegate <NSObject>
 

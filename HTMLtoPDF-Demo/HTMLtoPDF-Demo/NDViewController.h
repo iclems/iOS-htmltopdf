@@ -13,5 +13,6 @@
 @interface NDViewController : UIViewController <NDHTMLtoPDFDelegate>
 
 @property (nonatomic, strong) NDHTMLtoPDF *PDFCreator;
+@property (nonatomic, weak) IBOutlet UILabel *resultLabel;
 
 @end
