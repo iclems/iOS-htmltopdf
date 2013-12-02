@@ -13,15 +13,19 @@
 
 @class NDHTMLtoPDF;
 
+typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
+
 @protocol NDHTMLtoPDFDelegate <NSObject>
 
 @optional
 - (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF;
 - (void)HTMLtoPDFDidFail:(NDHTMLtoPDF*)htmlToPDF;
-
 @end
 
 @interface NDHTMLtoPDF : UIViewController <UIWebViewDelegate>
+
+@property (nonatomic, copy) NDHTMLtoPDFCompletionBlock successBlock;
+@property (nonatomic, copy) NDHTMLtoPDFCompletionBlock errorBlock;
 
 @property (nonatomic, weak) id <NDHTMLtoPDFDelegate> delegate;
 
@@ -31,4 +35,7 @@
 + (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
 + (id)createPDFWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
 
++ (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock;
++ (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock;
++ (id)createPDFWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock;
 @end

@@ -71,6 +71,32 @@
     
     return creator;
 }
++ (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock
+{
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithURL:URL delegate:nil pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    creator.successBlock = successBlock;
+    creator.errorBlock = errorBlock;
+    
+    return creator;
+}
+
++ (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock
+{
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML baseURL:nil delegate:nil pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    creator.successBlock = successBlock;
+    creator.errorBlock = errorBlock;
+    
+    return creator;
+}
+
++ (id)createPDFWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins successBlock:(NDHTMLtoPDFCompletionBlock)successBlock errorBlock:(NDHTMLtoPDFCompletionBlock)errorBlock
+{
+    NDHTMLtoPDF *creator = [[NDHTMLtoPDF alloc] initWithHTML:HTML baseURL:baseURL delegate:nil pathForPDF:PDFpath pageSize:pageSize margins:pageMargins];
+    creator.successBlock = successBlock;
+    creator.errorBlock = errorBlock;
+    
+    return creator;
+}
 
 - (id)initWithURL:(NSURL*)URL delegate:(id <NDHTMLtoPDFDelegate>)delegate pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
@@ -157,6 +183,10 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:)])
         [self.delegate HTMLtoPDFDidSucceed:self];
     
+    if(self.successBlock) {
+        self.successBlock(self);
+    }
+    
 
 }
 
@@ -168,6 +198,10 @@
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidFail:)])
         [self.delegate HTMLtoPDFDidFail:self];
+    
+    if(self.errorBlock) {
+        self.errorBlock(self);
+    }
 
 }
 
