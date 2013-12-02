@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kPaperSizeA4 CGSizeMake(595,842)
+#define kPaperSizeA4 CGSizeMake(595.2,841.8)
 #define kPaperSizeLetter CGSizeMake(612,792)
 
 @class NDHTMLtoPDF;
