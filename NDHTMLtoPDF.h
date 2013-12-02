@@ -18,6 +18,7 @@ typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
 @protocol NDHTMLtoPDFDelegate <NSObject>
 
 @optional
+- (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF withData:(NSData*)data;
 - (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF;
 - (void)HTMLtoPDFDidFail:(NDHTMLtoPDF*)htmlToPDF;
 @end
