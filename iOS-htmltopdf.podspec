@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/iclems/iOS-htmltopdf"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Clément Wehrung" => "cwehrung@nurves.com" }
-  s.source       = { :git => "https://github.com/martinjuhasz/iOS-htmltopdf.git", :commit => "6ec55068fe291dba157e77372ee83c3273cba79a" }
+  s.source       = { :git => "https://github.com/martinjuhasz/iOS-htmltopdf.git", :commit => "8f7b94129f4b08349b3d5521bb3c3047c9f381cc" }
   s.platform     = :ios, '5.0'
   s.source_files = 'Classes', '**/*.{h,m}'
   s.exclude_files = 'HTMLtoPDF-Demo'

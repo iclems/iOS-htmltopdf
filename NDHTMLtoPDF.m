@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, strong) NSString *HTML;
 @property (nonatomic, strong) NSString *PDFpath;
+@property (nonatomic, strong) NSData *PDFdata;
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) CGSize pageSize;
 @property (nonatomic, assign) UIEdgeInsets pageMargins;
@@ -106,6 +107,7 @@
         self.URL = URL;
         self.delegate = delegate;
         self.PDFpath = PDFpath;
+        self.PDFdata = nil;
                 
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
@@ -174,9 +176,12 @@
     [render setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"];
     [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
 
-    NSData *pdfData = [render printToPDF];
-        
-    [pdfData writeToFile: self.PDFpath  atomically: YES];
+    self.PDFdata = [render printToPDF];
+    
+    if(self.PDFpath) {
+        [self.PDFdata writeToFile: self.PDFpath  atomically: YES];
+    }
+    
     
     [self terminateWebTask];
 
