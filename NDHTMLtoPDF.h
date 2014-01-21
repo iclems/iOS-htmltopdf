@@ -2,9 +2,10 @@
 //  NDHTMLtoPDF.h
 //  Nurves
 //
-//  Created by Clément Wehrung on 31/10/12.
-//  Copyright (c) 2012-2013 Nurves. All rights reserved.
+//  Created by Clement Wehrung on 31/10/12.
+//  Copyright (c) 2012-2014 Clement Wehrung. All rights reserved.
 //
+//  Released under the MIT license
 
 #import <UIKit/UIKit.h>
 
