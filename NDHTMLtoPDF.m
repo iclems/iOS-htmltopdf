@@ -175,14 +175,19 @@
     [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
 
     NSData *pdfData = [render printToPDF];
-        
-    [pdfData writeToFile: self.PDFpath  atomically: YES];
+    
+    if (self.PDFpath) {
+        [pdfData writeToFile: self.PDFpath  atomically: YES];
+    }
     
     [self terminateWebTask];
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:)])
         [self.delegate HTMLtoPDFDidSucceed:self];
-    
+
+    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:withData:)])
+        [self.delegate HTMLtoPDFDidSucceed:self withData:pdfData];
+
     if(self.successBlock) {
         self.successBlock(self);
     }
