@@ -18,7 +18,6 @@ typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
 @protocol NDHTMLtoPDFDelegate <NSObject>
 
 @optional
-- (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF withData:(NSData*)data;
 - (void)HTMLtoPDFDidSucceed:(NDHTMLtoPDF*)htmlToPDF;
 - (void)HTMLtoPDFDidFail:(NDHTMLtoPDF*)htmlToPDF;
 @end
@@ -31,6 +30,7 @@ typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
 @property (nonatomic, weak) id <NDHTMLtoPDFDelegate> delegate;
 
 @property (nonatomic, strong, readonly) NSString *PDFpath;
+@property (nonatomic, strong, readonly) NSData *PDFdata;
 
 + (id)createPDFWithURL:(NSURL*)URL pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;
 + (id)createPDFWithHTML:(NSString*)HTML pathForPDF:(NSString*)PDFpath delegate:(id <NDHTMLtoPDFDelegate>)delegate pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins;

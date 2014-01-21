@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, strong) NSString *HTML;
 @property (nonatomic, strong) NSString *PDFpath;
+@property (nonatomic, strong) NSData *PDFdata;
 @property (nonatomic, strong) UIWebView *webview;
 @property (nonatomic, assign) CGSize pageSize;
 @property (nonatomic, assign) UIEdgeInsets pageMargins;
@@ -98,10 +99,18 @@
     return creator;
 }
 
+- (id)init
+{
+    if (self = [super init])
+    {
+        self.PDFdata = nil;
+    }
+    return self;
+}
+
 - (id)initWithURL:(NSURL*)URL delegate:(id <NDHTMLtoPDFDelegate>)delegate pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
-    self = [super init];
-    if (self)
+    if (self = [super init])
     {
         self.URL = URL;
         self.delegate = delegate;
@@ -109,11 +118,8 @@
                 
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
-
-        [[UIApplication sharedApplication].delegate.window addSubview:self.view];
-
-        self.view.frame = CGRectMake(0, 0, 1, 1);
-        self.view.alpha = 0.0;
+        
+        [self loadView];
     }
     return self;
 }
@@ -121,8 +127,7 @@
 - (id)initWithHTML:(NSString*)HTML baseURL:(NSURL*)baseURL delegate:(id <NDHTMLtoPDFDelegate>)delegate
         pathForPDF:(NSString*)PDFpath pageSize:(CGSize)pageSize margins:(UIEdgeInsets)pageMargins
 {
-    self = [super init];
-    if (self)
+    if (self = [super init])
     {
         self.HTML = HTML;
         self.URL = baseURL;
@@ -131,13 +136,18 @@
         
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
-        
-        [[UIApplication sharedApplication].delegate.window addSubview:self.view];
-        
-        self.view.frame = CGRectMake(0, 0, 1, 1);
-        self.view.alpha = 0.0;
+
+        [self loadView];
     }
     return self;
+}
+
+- (void)loadView
+{
+    [[UIApplication sharedApplication].delegate.window addSubview:self.view];
+    
+    self.view.frame = CGRectMake(0, 0, 1, 1);
+    self.view.alpha = 0.0;
 }
 
 - (void)viewDidLoad
@@ -174,19 +184,16 @@
     [render setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"];
     [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
 
-    NSData *pdfData = [render printToPDF];
+    self.PDFdata = [render printToPDF];
     
     if (self.PDFpath) {
-        [pdfData writeToFile: self.PDFpath  atomically: YES];
+        [self.PDFdata writeToFile: self.PDFpath  atomically: YES];
     }
     
     [self terminateWebTask];
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:)])
         [self.delegate HTMLtoPDFDidSucceed:self];
-
-    if (self.delegate && [self.delegate respondsToSelector:@selector(HTMLtoPDFDidSucceed:withData:)])
-        [self.delegate HTMLtoPDFDidSucceed:self withData:pdfData];
 
     if(self.successBlock) {
         self.successBlock(self);
