@@ -108,7 +108,7 @@
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
         
-        [self loadView];
+        [self ];
     }
     return self;
 }
@@ -126,12 +126,12 @@
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
 
-        [self loadView];
+        [self forceLoadView];
     }
     return self;
 }
 
-- (void)loadView
+- (void)forceLoadView
 {
     [[UIApplication sharedApplication].delegate.window addSubview:self.view];
     
