@@ -108,7 +108,7 @@
         self.pageMargins = pageMargins;
         self.pageSize = pageSize;
         
-        [self ];
+        [self forceLoadView];
     }
     return self;
 }
