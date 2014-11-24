@@ -1,6 +1,8 @@
 iOS-htmltopdf
 =============
 
+[<img src="https://www.paypal.com/en_US/i/btn/btn_donateCC_LG.gif">](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=P9MWVQ5H6PP5L)
+
 This class enables simple URL-based PDF creation. Pages are created the exact same way they would be if the user printed the content on an iOS device (very similar as well as OS X print output).
 
 Example code:
@@ -42,8 +44,4 @@ Please, be sure to create a property (e.g. `PDFCreator`) as NDHTMLtoPDF works as
 
 Feel free to contact me if you have any question !
 
-@cwehrung
-
-cwehrung@nurves.com
-
-Clément Wehrung
+[@cwehrung](https://twitter.com/cwehrung)
