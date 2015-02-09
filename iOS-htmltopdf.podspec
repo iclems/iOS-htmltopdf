@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "iOS-htmltopdf"
-  s.version      = "0.0.3"
+  s.version      = "1.0.0"
   s.summary      = "This class enables simple URL-based PDF creation."
   s.description  = "Pages are created the exact same way they would be if the user printed the content on an iOS device (very similar as well as OS X print output)."
   s.homepage     = "https://github.com/iclems/iOS-htmltopdf"
