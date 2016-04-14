@@ -212,9 +212,16 @@
     self.webview.delegate = nil;
     [self.webview removeFromSuperview];
     
-    [self.view removeFromSuperview];
+    if (self.view) {
+        [self.view removeFromSuperview];
+    }
     
     self.webview = nil;
+}
+
+- (void) dealloc
+{
+    [self terminateWebTask];
 }
 
 @end
