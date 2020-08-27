@@ -23,7 +23,7 @@ typedef void (^NDHTMLtoPDFCompletionBlock)(NDHTMLtoPDF* htmlToPDF);
 - (void)HTMLtoPDFDidFail:(NDHTMLtoPDF*)htmlToPDF;
 @end
 
-@interface NDHTMLtoPDF : UIViewController <UIWebViewDelegate>
+@interface NDHTMLtoPDF : UIViewController
 
 @property (nonatomic, copy) NDHTMLtoPDFCompletionBlock successBlock;
 @property (nonatomic, copy) NDHTMLtoPDFCompletionBlock errorBlock;

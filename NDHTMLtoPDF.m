@@ -13,14 +13,15 @@
 //  Addons : http://developer.apple.com/library/ios/#samplecode/PrintWebView/Listings/MyPrintPageRenderer_m.html#//apple_ref/doc/uid/DTS40010311-MyPrintPageRenderer_m-DontLinkElementID_7
 
 #import "NDHTMLtoPDF.h"
+#import <WebKit/WebKit.h>
 
-@interface NDHTMLtoPDF ()
+@interface NDHTMLtoPDF ()<WKNavigationDelegate>
 
 @property (nonatomic, strong) NSURL *URL;
 @property (nonatomic, strong) NSString *HTML;
 @property (nonatomic, strong) NSString *PDFpath;
 @property (nonatomic, strong) NSData *PDFdata;
-@property (nonatomic, strong) UIWebView *webview;
+@property (nonatomic, strong) WKWebView *webview;
 @property (nonatomic, assign) CGSize pageSize;
 @property (nonatomic, assign) UIEdgeInsets pageMargins;
 
@@ -143,8 +144,8 @@
 {
     [super viewDidLoad];
     
-    self.webview = [[UIWebView alloc] initWithFrame:self.view.frame];
-    webview.delegate = self;
+    self.webview = [[WKWebView alloc] initWithFrame:self.view.frame];
+    webview.navigationDelegate = self;
     
     [self.view addSubview:webview];
     
@@ -155,7 +156,7 @@
     }
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     if (webView.isLoading) return;
     
@@ -191,7 +192,7 @@
 
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error
 {
     if (webView.isLoading) return;
 
@@ -209,7 +210,7 @@
 - (void)terminateWebTask
 {
     [self.webview stopLoading];
-    self.webview.delegate = nil;
+    self.webview.navigationDelegate = nil;
     [self.webview removeFromSuperview];
     
     [self.view removeFromSuperview];
